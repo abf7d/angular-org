@@ -10,6 +10,14 @@ export class MultiLevelAnimationService {
 
   constructor(private http: HttpClient) { }
 
+  private sphereCamera: any;
+  private mLevelCamera: any;
+  private swapCamera: any;
+
+  private sphereRenderer = new THREE.WebGLRenderer();
+  private swapRenderer = new THREE.WebGLRenderer();
+  private mLevelRenderer = new THREE.WebGLRenderer();
+
   async initMultiLevelAnim(el: any) {
     const vertexShader$ = this.http.get<string>('/assets/shaders/vertexShader.glsl', { responseType: 'text' as 'json' });
     const fragmentShader$ = this.http.get<string>('/assets/shaders/fragmentShader.glsl', { responseType: 'text' as 'json' });
@@ -20,11 +28,11 @@ export class MultiLevelAnimationService {
       const container = document.getElementById('grid-container');
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xffffff)
-      const camera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight **/ .68, 1, 10000);
-      camera.position.set(210, 10, 140);
+      this.mLevelCamera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight **/ .68, 1, 10000);
+      this.mLevelCamera.position.set(210, 10, 140);
       //camera.lookAt(0, 0, 0); 
-      camera.lookAt(0, 0, -70); // moved the polygons up on the screen
-      camera.rotation.z = THREE.MathUtils.degToRad(45);
+      this.mLevelCamera.lookAt(0, 0, -70); // moved the polygons up on the screen
+      this.mLevelCamera.rotation.z = THREE.MathUtils.degToRad(45);
 
       const material = new THREE.ShaderMaterial({
         uniforms: {
@@ -105,11 +113,11 @@ export class MultiLevelAnimationService {
       polygonGroup2.fadePoints(0.5, 10)
       animationManager.addPolygon(polygonGroup2);
 
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(665, 700);//window.innerWidth, window.innerHeight);
-      el.appendChild(renderer.domElement);
+      // this.mLevelRenderer = new THREE.WebGLRenderer();
+      this.mLevelRenderer.setSize(665, 700);//window.innerWidth, window.innerHeight);
+      el.appendChild(this.mLevelRenderer.domElement);
 
-
+      const _this = this;
 
 
       // window.addEventListener('resize', () => onWindowResize(camera, renderer));
@@ -123,7 +131,146 @@ export class MultiLevelAnimationService {
         // resetInitiated = true;
         // }
         animationManager.animate();
-        renderer.render(scene, camera);
+        _this.mLevelRenderer.render(scene, _this.mLevelCamera);
+      }
+
+
+
+      // let resetInitiated = false;
+      animate();
+    });
+  }
+
+
+
+
+
+
+
+  async initMSwapProjAnim(el: any) {
+    const vertexShader$ = this.http.get<string>('/assets/shaders/vertexShader.glsl', { responseType: 'text' as 'json' });
+    const fragmentShader$ = this.http.get<string>('/assets/shaders/fragmentShader.glsl', { responseType: 'text' as 'json' });
+    // const vertexShader = await fetch('vertexShader.glsl').then((res) => res.text());
+    // const fragmentShader = await fetch('fragmentShader.glsl').then((res) => res.text());
+    combineLatest([vertexShader$, fragmentShader$]).subscribe(([vertexShader, fragmentShader]) => {
+
+      const container = document.getElementById('grid-container');
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xffffff)
+      this.swapCamera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight **/ .68, 1, 10000);
+      this.swapCamera.position.set(210, 10, 140);
+      //camera.lookAt(0, 0, 0); 
+      this.swapCamera.lookAt(0, 0, -70); // moved the polygons up on the screen
+      this.swapCamera.rotation.z = THREE.MathUtils.degToRad(45);
+
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          color: { value: new THREE.Color(0xffffff) },
+          pointTexture: {
+            value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png')
+          },
+          alphaTest: { value: .9 }
+        },
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
+      });
+
+      const edgesMaterial = new THREE.LineBasicMaterial({
+        color: 0x222222,
+        linewidth: 3,
+        transparent: true,
+        opacity: 0.4
+      });
+
+      const gridSize = 5;
+      const gridSpacing = 15;
+      const initialZPosition = 70;
+
+      const animationManager = new AnimationManager();
+      // const polygonGroup0 = new PolygonGroup(scene, gridSize, gridSpacing, initialZPosition, 0, material, edgesMaterial);
+      // polygonGroup0.animatePointsExpandCollapse(true, 0.25);
+      // polygonGroup0.pause(5.75);
+      // polygonGroup0.animatePointsExpandCollapse(false, 0.25);
+      // polygonGroup0.pause(.5);
+
+      // animationManager.addPolygon(polygonGroup0);
+      const polygonGroup1 = new PolygonGroup(scene, gridSize, gridSpacing, initialZPosition, 1, material, edgesMaterial);
+      polygonGroup1.animatePointColorChange('#ffd800', 0)
+      polygonGroup1.fadePoints(0, .8)
+      polygonGroup1.moveToZ(-70, 0);
+      polygonGroup1.animatePointsExpandCollapse(true, 0.25);
+      polygonGroup1.pause(3.5);
+      // polygonGroup1.animatePointColorChange('#1c1', .25)
+      
+      polygonGroup1.pause(2.9);
+      polygonGroup1.animatePointColorChange('#1c1', .25)
+      polygonGroup1.pause(1.5)
+      polygonGroup1.animatePointsExpandCollapse(false, 0.25);
+      polygonGroup1.pause(.15);
+      // polygonGroup1.moveToZ(0, 0.25, -70);
+      polygonGroup1.fadePoints(0, 1)
+     
+      
+
+      animationManager.addPolygon(polygonGroup1);
+
+      const polygonGroup2 = new PolygonGroup(scene, gridSize, gridSpacing, 0, 2, material, edgesMaterial);
+      polygonGroup2.animatePointColorChange('#f00', 0)
+      polygonGroup2.pause(.5);
+      polygonGroup2.fadePoints(0, .8)
+      polygonGroup2.moveToZ(-170, 0.25, -70);
+      polygonGroup2.animatePointsExpandCollapse(true, 0.25);
+
+
+
+
+      polygonGroup2.pause(1);
+      polygonGroup2.animatePointsExpandCollapse(false, 0.25);
+      polygonGroup2.moveToY(-140, 0.5, 0);
+      polygonGroup2.animatePointColorChange('#ffd800', 0)
+      polygonGroup2.moveToY(0, 0.5, 140);
+      polygonGroup2.pause(.1);
+      polygonGroup2.moveToY(-140, 0.5, 0);
+      polygonGroup2.animatePointColorChange('#1c1', 0)
+      polygonGroup2.moveToY(0, 0.5, 140);
+      polygonGroup2.animatePointsExpandCollapse(true, 0.25);
+      polygonGroup2.pause(1.25);
+
+
+
+
+
+      // polygonGroup2.pause(3.25);
+
+      polygonGroup2.animatePointsExpandCollapse(false, 0.25);
+      // polygonGroup2.pause(0.25);
+
+
+      polygonGroup2.moveToZ(-70, 0.25, -170);
+      // polygonGroup2.pause(1.42);
+      polygonGroup2.fadePoints(0, 0);
+      // polygonGroup2.fadePoints(0.5, 10)
+      animationManager.addPolygon(polygonGroup2);
+
+      // this.swapRenderer = new THREE.WebGLRenderer();
+      this.swapRenderer.setSize(665, 700);//window.innerWidth, window.innerHeight);
+      el.appendChild(this.swapRenderer.domElement);
+
+
+
+
+      // window.addEventListener('resize', () => onWindowResize(camera, renderer));
+      const _this = this;
+      function animate() {
+        requestAnimationFrame(animate);
+        // if (!resetInitiated) {
+        // this is a hack, it shouldn't be called every frame, it should be called once
+        // but it only works this way
+        animationManager.initializeReset();
+        // resetInitiated = true;
+        // }
+        animationManager.animate();
+        _this.swapRenderer.render(scene, _this.swapCamera);
       }
 
 
@@ -140,8 +287,22 @@ export class MultiLevelAnimationService {
 
 
 
+  onWindowResize(newWidth: number, newHeight: number): void {
+    // this.mLevelCamera.aspect = newWidth / newHeight;
+    // this.mLevelCamera.updateProjectionMatrix();
+
+    // this.swapCamera.aspect = newWidth / newHeight;
+    // this.swapCamera.updateProjectionMatrix();
 
 
+    this.sphereCamera.aspect = newWidth / newHeight;
+    this.sphereCamera.updateProjectionMatrix();
+
+
+    // this.mLevelRenderer.setSize(newWidth, newHeight);
+    // this.swapRenderer.setSize(newWidth, newHeight);
+    this.sphereRenderer.setSize(newWidth, newHeight);
+  }
 
 
 
@@ -159,10 +320,10 @@ export class MultiLevelAnimationService {
     scene.background = new THREE.Color(0xffffff);
   
     // Setup camera
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(250, 10, 250);
-    camera.lookAt(0, 0, -70);
-    camera.rotation.z = THREE.MathUtils.degToRad(45);
+    this.sphereCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    this.sphereCamera.position.set(250, 10, 250);
+    this.sphereCamera.lookAt(0, 0, -70);
+    this.sphereCamera.rotation.z = THREE.MathUtils.degToRad(45);
   
     // Edges material
     const edgesMaterial = new THREE.LineBasicMaterial({
@@ -252,13 +413,13 @@ export class MultiLevelAnimationService {
     scene.add(sphere1);
   
     // Setup renderer
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    el.appendChild(renderer.domElement);
+    // this.sphereRenderer = new THREE.WebGLRenderer();
+    this.sphereRenderer.setSize(window.innerWidth, window.innerHeight);
+    el.appendChild(this.sphereRenderer.domElement);
   
     // Handle window resize
     // window.addEventListener('resize', () => onWindowResize(camera, renderer));
-  
+    const _this = this;
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
@@ -266,7 +427,7 @@ export class MultiLevelAnimationService {
       // Rotate spheres
       sphere1.rotation.y += 0.01;
   
-      renderer.render(scene, camera);
+      _this.sphereRenderer.render(scene, _this.sphereCamera);
     }
   
     animate();
