@@ -392,6 +392,35 @@ export class MultiLevelAnimationService {
         transparent: true,
         opacity: 0.8,
       });
+      // const particleMaterial = new THREE.ShaderMaterial({
+      //   uniforms: {
+      //     color: { value: color },
+      //     pointTexture: {
+      //       value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png') //'/assets/textures/circle.png'), // Circular texture
+      //     },
+      //   },
+      //   vertexShader: vertexShader,
+      //   fragmentShader: fragmentShader,
+      //   // transparent: true,
+      //   alphaTest: 0.5, // Helps with transparent particles
+      // });
+
+
+
+      // const material = new THREE.ShaderMaterial({
+      //   uniforms: {
+      //     color: { value: new THREE.Color(0xffffff) },
+      //     pointTexture: {
+      //       value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png')
+      //     },
+      //     alphaTest: { value: .9 }
+      //   },
+      //   vertexShader: vertexShader,
+      //   fragmentShader: fragmentShader
+      // });
+
+
+
   
       const particles = new THREE.Points(geometry, particleMaterial);
   
@@ -425,7 +454,7 @@ export class MultiLevelAnimationService {
       requestAnimationFrame(animate);
   
       // Rotate spheres
-      sphere1.rotation.y += 0.01;
+      sphere1.rotation.y += 0.004;
   
       _this.sphereRenderer.render(scene, _this.sphereCamera);
     }

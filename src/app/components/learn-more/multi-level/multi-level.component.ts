@@ -11,20 +11,20 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class MultiLevelComponent implements OnInit {
   @ViewChild('mltLevelEl', { static: true }) mltLevelEl!: ElementRef;
-  @ViewChild('sphereEl', { static: true }) sphereEl!: ElementRef;
+ 
   @ViewChild('swapEl', { static: true }) swapEl!: ElementRef;
   constructor(private multiLevel: MultiLevelAnimationService) { }
   ngOnInit(): void {
     this.multiLevel.initMultiLevelAnim(this.mltLevelEl.nativeElement);
     this.multiLevel.initMSwapProjAnim(this.swapEl.nativeElement);
-    this.multiLevel.initSphereAnim(this.sphereEl.nativeElement);
+    // this.multiLevel.initSphereAnim(this.sphereEl.nativeElement);
 
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    const newWidth = (event.target as Window).innerWidth;
-    const newHeight = (event.target as Window).innerHeight;
-    this.multiLevel.onWindowResize(newWidth, newHeight); // Call the resize logic from your service
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event) {
+  //   const newWidth = (event.target as Window).innerWidth;
+  //   const newHeight = (event.target as Window).innerHeight;
+  //   this.multiLevel.onWindowResize(newWidth, newHeight); // Call the resize logic from your service
+  // }
 }
