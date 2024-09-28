@@ -60,7 +60,7 @@ export class MultiLevelAnimationService {
       const animationManager = new AnimationManager();
       const polygonGroup0 = new PolygonGroup(scene, gridSize, gridSpacing, initialZPosition, 0, material, edgesMaterial);
       polygonGroup0.animatePointsExpandCollapse(true, 0.25);
-      polygonGroup0.pause(5.75);
+      polygonGroup0.pause(3.75);
       // polygonGroup0.animatePointColorChange('#999', .25)
       // polygonGroup0.pause(1.2);
       // polygonGroup0.animatePointColorChange('#1c1', .25)
@@ -72,7 +72,7 @@ export class MultiLevelAnimationService {
       polygonGroup1.fadePoints(0, .8)
       polygonGroup1.moveToZ(-70, 0.25);
       polygonGroup1.animatePointsExpandCollapse(true, 0.25);
-      polygonGroup1.pause(3.5);
+      polygonGroup1.pause(1.5);
       // polygonGroup1.animatePointColorChange('#1c1', .25)
       polygonGroup1.pause(.9);
       polygonGroup1.animatePointsExpandCollapse(false, 0.25);
@@ -101,7 +101,7 @@ export class MultiLevelAnimationService {
       // polygonGroup2.animatePointsExpandCollapse(true, 0.25);
       // polygonGroup2.pause(1.25);
 
-      polygonGroup2.pause(3.25);
+      polygonGroup2.pause(1.25);
 
       polygonGroup2.animatePointsExpandCollapse(false, 0.25);
       // polygonGroup2.pause(0.25);
@@ -569,7 +569,7 @@ export class MultiLevelAnimationService {
             break;
         case 'xlarge':
           // Large screen (desktop)
-          this.sphereRenderer.setSize(2200, 1200, false);  // Use fixed size for desktop
+          this.sphereRenderer.setSize(2100, 1200, false);  // Use fixed size for desktop
           break;
       }
     }
