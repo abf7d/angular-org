@@ -202,7 +202,7 @@ export class MultiLevelAnimationService {
       polygonGroup1.pause(3.5);
       // polygonGroup1.animatePointColorChange('#1c1', .25)
       
-      polygonGroup1.pause(2.3);
+      polygonGroup1.pause(1.5);
       polygonGroup1.animatePointColorChange('#1c1', .25)
       polygonGroup1.pause(0.25)
       polygonGroup1.animatePointsExpandCollapse(false, 0.25);
@@ -225,7 +225,7 @@ export class MultiLevelAnimationService {
 
 
       polygonGroup2.pause(.5);
-      polygonGroup2.animatePointsExpandCollapse(false, 0.25);
+      // polygonGroup2.animatePointsExpandCollapse(false, 0.25);
       polygonGroup2.moveToY(-140, 0.5, 0);
       polygonGroup2.animatePointColorChange('#ffd800', 0)
       polygonGroup2.moveToY(0, 0.5, 140);
@@ -233,7 +233,7 @@ export class MultiLevelAnimationService {
       polygonGroup2.moveToY(-140, 0.5, 0);
       polygonGroup2.animatePointColorChange('#1c1', 0)
       polygonGroup2.moveToY(0, 0.5, 140);
-      polygonGroup2.animatePointsExpandCollapse(true, 0.25);
+      // polygonGroup2.animatePointsExpandCollapse(true, 0.25);
       polygonGroup2.pause(.75);
 
 
