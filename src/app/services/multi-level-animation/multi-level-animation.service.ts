@@ -29,7 +29,7 @@ export class MultiLevelAnimationService {
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xffffff)
       this.mLevelCamera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight **/ .68, 1, 10000);
-      this.mLevelCamera.position.set(210, 10, 140);
+      this.mLevelCamera.position.set(240, 10, 140);
       //camera.lookAt(0, 0, 0); 
       this.mLevelCamera.lookAt(0, 0, -70); // moved the polygons up on the screen
       this.mLevelCamera.rotation.z = THREE.MathUtils.degToRad(45);
@@ -38,7 +38,7 @@ export class MultiLevelAnimationService {
         uniforms: {
           color: { value: new THREE.Color(0xffffff) },
           pointTexture: {
-            value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png')
+            value: new THREE.TextureLoader().load('/assets/images/sprites/circle.png')
           },
           alphaTest: { value: .9 }
         },
@@ -54,7 +54,7 @@ export class MultiLevelAnimationService {
       });
 
       const gridSize = 5;
-      const gridSpacing = 15;
+      const gridSpacing = 17;
       const initialZPosition = 70;
 
       const animationManager = new AnimationManager();
@@ -158,7 +158,7 @@ export class MultiLevelAnimationService {
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xffffff)
       this.swapCamera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight **/ .68, 1, 10000);
-      this.swapCamera.position.set(210, 10, 140);
+      this.swapCamera.position.set(210, 10, 160);
       //camera.lookAt(0, 0, 0); 
       this.swapCamera.lookAt(0, 0, -70); // moved the polygons up on the screen
       this.swapCamera.rotation.z = THREE.MathUtils.degToRad(45);
@@ -167,7 +167,7 @@ export class MultiLevelAnimationService {
         uniforms: {
           color: { value: new THREE.Color(0xffffff) },
           pointTexture: {
-            value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png')
+            value: new THREE.TextureLoader().load('/assets/images/sprites/circle.png')
           },
           alphaTest: { value: .9 }
         },
@@ -183,7 +183,7 @@ export class MultiLevelAnimationService {
       });
 
       const gridSize = 5;
-      const gridSpacing = 15;
+      const gridSpacing = 20;
       const initialZPosition = 70;
 
       const animationManager = new AnimationManager();
@@ -197,14 +197,14 @@ export class MultiLevelAnimationService {
       const polygonGroup1 = new PolygonGroup(scene, gridSize, gridSpacing, initialZPosition, 1, material, edgesMaterial);
       polygonGroup1.animatePointColorChange('#ffd800', 0)
       polygonGroup1.fadePoints(0, .8)
-      polygonGroup1.moveToZ(-70, 0);
+      polygonGroup1.moveToZ(-35, 0);
       polygonGroup1.animatePointsExpandCollapse(true, 0.25);
       polygonGroup1.pause(3.5);
       // polygonGroup1.animatePointColorChange('#1c1', .25)
       
-      polygonGroup1.pause(2.9);
+      polygonGroup1.pause(2.3);
       polygonGroup1.animatePointColorChange('#1c1', .25)
-      polygonGroup1.pause(1.5)
+      polygonGroup1.pause(0.25)
       polygonGroup1.animatePointsExpandCollapse(false, 0.25);
       polygonGroup1.pause(.15);
       // polygonGroup1.moveToZ(0, 0.25, -70);
@@ -218,13 +218,13 @@ export class MultiLevelAnimationService {
       polygonGroup2.animatePointColorChange('#f00', 0)
       polygonGroup2.pause(.5);
       polygonGroup2.fadePoints(0, .8)
-      polygonGroup2.moveToZ(-170, 0.25, -70);
+      polygonGroup2.moveToZ(-135, 0.25, -70);
       polygonGroup2.animatePointsExpandCollapse(true, 0.25);
 
 
 
 
-      polygonGroup2.pause(1);
+      polygonGroup2.pause(.5);
       polygonGroup2.animatePointsExpandCollapse(false, 0.25);
       polygonGroup2.moveToY(-140, 0.5, 0);
       polygonGroup2.animatePointColorChange('#ffd800', 0)
@@ -234,7 +234,7 @@ export class MultiLevelAnimationService {
       polygonGroup2.animatePointColorChange('#1c1', 0)
       polygonGroup2.moveToY(0, 0.5, 140);
       polygonGroup2.animatePointsExpandCollapse(true, 0.25);
-      polygonGroup2.pause(1.25);
+      polygonGroup2.pause(.75);
 
 
 
@@ -246,7 +246,7 @@ export class MultiLevelAnimationService {
       // polygonGroup2.pause(0.25);
 
 
-      polygonGroup2.moveToZ(-70, 0.25, -170);
+      polygonGroup2.moveToZ(-35, 0.25, -135);
       // polygonGroup2.pause(1.42);
       polygonGroup2.fadePoints(0, 0);
       // polygonGroup2.fadePoints(0.5, 10)
@@ -295,13 +295,26 @@ export class MultiLevelAnimationService {
     // this.swapCamera.updateProjectionMatrix();
 
 
-    this.sphereCamera.aspect = newWidth / newHeight;
-    this.sphereCamera.updateProjectionMatrix();
+    // this.sphereCamera.aspect = newWidth / newHeight;
+    // this.sphereCamera.updateProjectionMatrix();
 
 
-    // this.mLevelRenderer.setSize(newWidth, newHeight);
-    // this.swapRenderer.setSize(newWidth, newHeight);
-    this.sphereRenderer.setSize(newWidth, newHeight);
+    // // // this.mLevelRenderer.setSize(newWidth, newHeight);
+    // // // this.swapRenderer.setSize(newWidth, newHeight);
+    // // this.sphereRenderer.setSize(newWidth, newWidth / 2); //newHeight);
+
+
+    // // this.swapRenderer.setSize(newWidth, newWidth / 2);
+    this.setBreakpoints(newWidth, newHeight);
+
+
+  //   const newHeight2 = newWidth * (9 / 16);  // Adjust the ratio as per your design (16:9 is typical)
+
+  // // Update camera aspect ratio based on width and proportional height
+  // this.sphereCamera.aspect = newWidth / newHeight2;
+  // console.log('newWidth', newWidth, 'newHeight', newHeight2)
+  // this.setBreakpoints(newWidth, newHeight);
+ 
   }
 
 
@@ -313,14 +326,14 @@ export class MultiLevelAnimationService {
     // const vertexShader = await fetch('vertexShader.glsl').then((res) => res.text());
     // const fragmentShader = await fetch('fragmentShader.glsl').then((res) => res.text());
     combineLatest([vertexShader$, fragmentShader$]).subscribe(([vertexShader, fragmentShader]) => {
-
+      console.log('chaders', vertexShader, fragmentShader)
     // Get container and create the scene
     const container = document.getElementById('container') as HTMLElement;
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
   
     // Setup camera
-    this.sphereCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    this.sphereCamera = new THREE.PerspectiveCamera(45, /*window.innerWidth / window.innerHeight*/ 16/9, 1, 10000);
     this.sphereCamera.position.set(250, 10, 250);
     this.sphereCamera.lookAt(0, 0, -70);
     this.sphereCamera.rotation.z = THREE.MathUtils.degToRad(45);
@@ -385,18 +398,46 @@ export class MultiLevelAnimationService {
       geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   
       // Create particle points
+      // const particleMaterial = new THREE.PointsMaterial({
+      //   color: color,
+      //   size: 5,
+      //   sizeAttenuation: true,
+      //   transparent: true,
+      //   opacity: 0.8,
+      // });
+
+      const textureLoader = new THREE.TextureLoader();
+      const circleTexture = textureLoader.load('/assets/images/sprites/circle.png'); //https://threejs.org/examples/textures/sprites/circle.png');
+
+      // Create PointsMaterial with the texture
       const particleMaterial = new THREE.PointsMaterial({
-        color: color,
-        size: 5,
-        sizeAttenuation: true,
-        transparent: true,
-        opacity: 0.8,
+        color,
+        map: circleTexture,   // Use the circular texture
+        size: 5,              // Set particle size
+        transparent: true,    // Enable transparency (for the texture)
+        alphaTest: 0.5,       // Remove pixels with alpha less than 0.5 (optional)
+        depthTest: true,      // Ensure correct depth sorting
       });
+
+      // const particleMaterial = new THREE.ShaderMaterial({
+      //   uniforms: {
+      //     color: { value: new THREE.Color(0xaaaaaa) }
+      //   },
+      //   vertexShader: vertexShader,
+      //   fragmentShader: fragmentShader,
+      //   // transparent: true,
+      //   depthTest: true, // Ensure particles are depth-tested
+      //   depthWrite: true, // Ensure depth buffer is updated
+      //   alphaTest: 0.9,  // Discard fragments with low alpha (if applicable)
+      // });
+
+
+
       // const particleMaterial = new THREE.ShaderMaterial({
       //   uniforms: {
       //     color: { value: color },
       //     pointTexture: {
-      //       value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png') //'/assets/textures/circle.png'), // Circular texture
+      //       value: new THREE.TextureLoader().load('/assets/images/sprites/circle.png') //'/assets/textures/circle.png'), // Circular texture
       //     },
       //   },
       //   vertexShader: vertexShader,
@@ -411,7 +452,7 @@ export class MultiLevelAnimationService {
       //   uniforms: {
       //     color: { value: new THREE.Color(0xffffff) },
       //     pointTexture: {
-      //       value: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/circle.png')
+      //       value: new THREE.TextureLoader().load('/assets/images/sprites/circle.png')
       //     },
       //     alphaTest: { value: .9 }
       //   },
@@ -443,7 +484,19 @@ export class MultiLevelAnimationService {
   
     // Setup renderer
     // this.sphereRenderer = new THREE.WebGLRenderer();
-    this.sphereRenderer.setSize(window.innerWidth, window.innerHeight);
+    // this.sphereRenderer.setSize(2200, 1100);
+    
+    // this.sphereRenderer.setSize(window.innerWidth, window.innerHeight);
+    // this.setBreakpoints(window.innerHeight, window.innerHeight);
+
+
+    const initialWidth = window.innerWidth;
+    const initialHeight = initialWidth * (9 / 16); // Proportional height based on width
+  
+    // Set initial renderer size based on width
+   // this.sphereRenderer.setSize(initialWidth, initialHeight,  false);
+    this.setBreakpoints(initialWidth, initialHeight)
+    this.sphereRenderer.domElement.classList.add('threejs-canvas');
     el.appendChild(this.sphereRenderer.domElement);
   
     // Handle window resize
@@ -465,10 +518,62 @@ export class MultiLevelAnimationService {
 
 
 
+  // setBreakpoints(newWidth: number, newHeight: number): void {
+  //   // Adjust visualization size based on window width breakpoints
+  //   if (newWidth < 768) {
+  //     // Small screen (mobile)
+  //     this.sphereRenderer.setSize(newWidth * 0.8, newHeight * 0.5, false);
+  //   } else if (newWidth >= 768 && newWidth < 1200) {
+  //     // Medium screen (tablet)
+  //     this.sphereRenderer.setSize(newWidth * 0.9, newHeight * 0.7, false);
+  //   } else {
+  //     // Large screen (desktop)
+  //     this.sphereRenderer.setSize(newWidth, newHeight),  false;
+  //   }
+  // }
 
 
+  currentBreakpoint: string | null = null;
 
-
+  setBreakpoints(newWidth: number, newHeight: number): void {
+    let newBreakpoint: string;
+  
+    // Determine the breakpoint range based on the window width
+    if (newWidth < 768) {
+      newBreakpoint = 'small';  // Small screen (mobile)
+    } else if (newWidth >= 768 && newWidth < 1200) {
+      newBreakpoint = 'medium';  // Medium screen (tablet)
+    } else if (newWidth >= 1200 && newWidth < 1600) {
+      newBreakpoint = 'large';  // Large screen (desktop)
+    } else {
+      newBreakpoint = 'xlarge';  // Large screen (desktop)
+    }
+  
+    // Only apply changes if the new breakpoint is different from the current one
+    if (newBreakpoint !== this.currentBreakpoint) {
+      this.currentBreakpoint = newBreakpoint;  // Update the current breakpoint
+  
+      // Apply fixed sizes for each breakpoint
+      switch (newBreakpoint) {
+        case 'small':
+          // Small screen (mobile)
+          this.sphereRenderer.setSize(500, 300, false);  // Use fixed width and height for mobile
+          break;
+        case 'medium':
+          // Medium screen (tablet)
+          this.sphereRenderer.setSize(1200, 600, false);  // Use fixed size for tablet
+          break;
+        case 'large':
+            // Large screen (desktop)
+            this.sphereRenderer.setSize(1600, 800, false);  // Use fixed size for desktop
+            break;
+        case 'xlarge':
+          // Large screen (desktop)
+          this.sphereRenderer.setSize(2200, 1200, false);  // Use fixed size for desktop
+          break;
+      }
+    }
+  }
 
 }
 
