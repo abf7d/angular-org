@@ -197,12 +197,12 @@ export class MultiLevelAnimationService {
       const polygonGroup1 = new PolygonGroup(scene, gridSize, gridSpacing, initialZPosition, 1, material, edgesMaterial);
       polygonGroup1.animatePointColorChange('#ffd800', 0)
       polygonGroup1.fadePoints(0, .8)
-      polygonGroup1.moveToZ(-35, 0);
+      polygonGroup1.moveToZ(-15, 0);
       polygonGroup1.animatePointsExpandCollapse(true, 0.25);
       polygonGroup1.pause(3.5);
       // polygonGroup1.animatePointColorChange('#1c1', .25)
       
-      polygonGroup1.pause(1.5);
+      polygonGroup1.pause(4.3); //1.5);
       polygonGroup1.animatePointColorChange('#1c1', .25)
       polygonGroup1.pause(0.25)
       polygonGroup1.animatePointsExpandCollapse(false, 0.25);
@@ -218,22 +218,24 @@ export class MultiLevelAnimationService {
       polygonGroup2.animatePointColorChange('#f00', 0)
       polygonGroup2.pause(.5);
       polygonGroup2.fadePoints(0, .8)
-      polygonGroup2.moveToZ(-135, 0.25, -70);
+      polygonGroup2.moveToZ(-105, 0.25, -70);
       polygonGroup2.animatePointsExpandCollapse(true, 0.25);
 
 
 
 
       polygonGroup2.pause(.5);
-      // polygonGroup2.animatePointsExpandCollapse(false, 0.25);
-      polygonGroup2.moveToY(-140, 0.5, 0);
+      polygonGroup2.animatePointsExpandCollapse(false, 0.25); // comment this
+      polygonGroup2.moveToY(-140, 0.8, 0);
       polygonGroup2.animatePointColorChange('#ffd800', 0)
-      polygonGroup2.moveToY(0, 0.5, 140);
-      polygonGroup2.pause(.1);
-      polygonGroup2.moveToY(-140, 0.5, 0);
+      polygonGroup2.moveToY(0, 0.8, 140);
+      polygonGroup2.animatePointsExpandCollapse(true, 0.2);
+      polygonGroup2.pause(.7);
+      polygonGroup2.animatePointsExpandCollapse(false, 0.2);
+      polygonGroup2.moveToY(-140, 0.8, 0);
       polygonGroup2.animatePointColorChange('#1c1', 0)
-      polygonGroup2.moveToY(0, 0.5, 140);
-      // polygonGroup2.animatePointsExpandCollapse(true, 0.25);
+      polygonGroup2.moveToY(0, 0.8, 140);
+      polygonGroup2.animatePointsExpandCollapse(true, 0.25); // comment this
       polygonGroup2.pause(.75);
 
 
@@ -246,7 +248,7 @@ export class MultiLevelAnimationService {
       // polygonGroup2.pause(0.25);
 
 
-      polygonGroup2.moveToZ(-35, 0.25, -135);
+      polygonGroup2.moveToZ(-15, 0.25, -105);
       // polygonGroup2.pause(1.42);
       polygonGroup2.fadePoints(0, 0);
       // polygonGroup2.fadePoints(0.5, 10)
