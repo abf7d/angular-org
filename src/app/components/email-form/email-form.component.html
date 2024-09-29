@@ -15,9 +15,11 @@
             <div class="row g-gs">
                 <div class="col-12">
                     <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <div class="validation-error" *ngIf="form.get('name')?.errors?.['required']">Name is required.</div>
-                        <div class="validation-error" *ngIf="form.get('name')?.errors?.['maxlength']">Name cannot be longer than 100 characters.</div>
+                        <label class="form-label">Full Name
+                            <span class="validation-error" *ngIf="form.get('name')?.errors?.['required']">is required.</span>
+                        <span class="validation-error" *ngIf="form.get('name')?.errors?.['maxlength']">cannot be longer than 100 characters.</span>
+                        </label>
+                        
                         <div class="form-control-wrap">
                             <input type="text" name="name" class="form-control" placeholder="Enter your name" required="" id="name" formControlName="name" />
                         </div>
@@ -25,10 +27,12 @@
                 </div>
                 <div class="col-lg-6 flex-end">
                     <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <div class="validation-error" *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
-                        <div class="validation-error" *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email.</div>
-                        <div class="validation-error" *ngIf="form.get('email')?.errors?.['maxlength']">Email cannot be longer than 100 characters.</div>
+                        <label class="form-label">Email
+                            <span class="validation-error" *ngIf="form.get('email')?.errors?.['required']">is required.</span>
+                            <span class="validation-error" *ngIf="form.get('email')?.errors?.['maxlength']">cannot be longer than 100 characters. </span>
+                            <span class="validation-error" *ngIf="form.get('email')?.errors?.['email']">must be valid.</span>
+                        
+                        </label>
                         <div class="form-control-wrap">
                             <input
                                 type="email"
@@ -59,9 +63,12 @@
                                 <span id="char-max" data-char-max="255">{{ maxLengthMessage }}</span>
                             </span>
                         </div>
-                        <div class="validation-error" *ngIf="form.get('message')?.errors?.['required']">Message is required.</div>
-                        <div class="validation-error" *ngIf="form.get('message')?.errors?.['maxlength']">Message cannot be longer than 255 characters.</div>
-                        <div class="form-control-wrap">
+
+                        <label class="form-label">Message
+                            <span class="validation-error" *ngIf="form.get('message')?.errors?.['required']">is required.</span>
+                            <span class="validation-error" *ngIf="form.get('message')?.errors?.['maxlength']">cannot be longer than 255 characters. </span>
+                        </label>
+                            <div class="form-control-wrap">
                             <textarea
                                 id="message"
                                 formControlName="message"

@@ -352,3 +352,10 @@ main {
     transform: translate(-50%, -50%);
     text-align: center;
 }
+.form-control {
+    color: #333;
+    border: 1px solid #999;
+}
+.form-group .form-control-wrap input {
+    border: 1px solid #999;
+}
