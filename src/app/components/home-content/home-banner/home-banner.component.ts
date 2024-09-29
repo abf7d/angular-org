@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../../config/environment';
 
 @Component({
   selector: 'cpo-home-banner',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './home-banner.component.scss'
 })
 export class HomeBannerComponent {
-
+  public appUrl: string = environment.appUrl;
 }

@@ -10,6 +10,7 @@ import { MultiLevelAnimationService } from '../../../services/multi-level-animat
 })
 export class LearnMoreBannerComponent {
   @ViewChild('sphereEl', { static: true }) sphereEl!: ElementRef;
+  public appUrl: string = '';
   constructor(private multiLevel: MultiLevelAnimationService) { }
   ngOnInit(): void {
     this.multiLevel.initSphereAnim(this.sphereEl.nativeElement);
